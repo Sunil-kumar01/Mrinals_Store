@@ -51,7 +51,8 @@ The original static site was improved with:
 - Product detail pages
 - Order/customisation form
 - Email order fallback using `mailto:`
-- UPI and Cash on Delivery information
+- Editable UPI, contact email, and Cash on Delivery settings
+- Shared store name and brand subtitle settings
 - Branded fallback artwork when an image URL fails
 - Empty search-result message
 - Relative paths so the standalone folder works correctly
@@ -69,6 +70,10 @@ The admin page is available at `admin.html` and includes:
 - Set an image URL
 - Upload an image from the computer
 - Export the current catalog as `products.json`
+- Change the admin email and password
+- Change the store name and brand subtitle
+- Change the UPI ID and contact email
+- Enable or disable Cash on Delivery
 - Log out
 
 Demo login used for local testing:
@@ -78,7 +83,7 @@ Demo login used for local testing:
 
 ### Important Admin Limitation
 
-This is a static website. Admin changes are saved in the browser's `localStorage`, so they are visible only in that same browser and device. They do not automatically update the GitHub repository or other users' browsers.
+This is a static website. Product edits and store settings are saved in the browser's `localStorage`. Open storefront tabs in the same browser receive changes through the browser storage event and refresh automatically. Changes do not update the GitHub repository, other devices, or other browsers.
 
 For a real production admin system, the next version should use:
 
@@ -120,6 +125,8 @@ The standalone repository was initialized with its own `main` branch.
 | `7a2dc1e` | Fixed standalone CSS, JavaScript, product, and config paths |
 | `a329298` | Added pink branding and the admin dashboard |
 | `3212128` | Added filters, image fallbacks, GitHub Pages workflow, and repository cleanup |
+| `4646f53` | Added the complete project handoff document |
+| `23f0b7a` | Added shared store settings and live same-browser admin sync |
 
 The local branch tracks the GitHub `main` branch.
 
