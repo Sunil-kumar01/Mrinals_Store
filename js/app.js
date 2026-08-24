@@ -17,16 +17,31 @@ function formatPrice(price) {
   return `₹${price}`;
 }
 
+function categoryFor(product) {
+  const name = product.name.toLowerCase();
+  if (name.includes('t-shirt')) return 'shirt';
+  if (name.includes('handkerchief')) return 'handkerchief';
+  if (name.includes('custom')) return 'custom';
+  return 'hoop';
+}
+
+function imageFallback(event) {
+  event.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400"%3E%3Crect width="600" height="400" fill="%23f9d5e3"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%2354263d" font-family="Georgia" font-size="28"%3EMrinal%27s Creations%3C/text%3E%3C/svg%3E';
+  event.target.onerror = null;
+}
+
 async function renderList() {
   const products = await loadProducts();
   const container = document.getElementById('products');
   const search = document.getElementById('searchProducts');
-  const draw = (term = '') => {
+  const category = document.getElementById('categoryProducts');
+  const draw = (term = '', selectedCategory = 'all') => {
     container.innerHTML = '';
-    products.filter(p => `${p.name} ${p.short}`.toLowerCase().includes(term.toLowerCase())).forEach(p => {
+    const visibleProducts = products.filter(p => selectedCategory === 'all' || categoryFor(p) === selectedCategory).filter(p => `${p.name} ${p.short}`.toLowerCase().includes(term.toLowerCase()));
+    visibleProducts.forEach(p => {
     const card = el('article', 'product-card');
     card.innerHTML = `
-      <img src="${p.image}" alt="${p.name}" loading="lazy">
+      <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="imageFallback(event)">
       <h3>${p.name}</h3>
       <p class="price">${formatPrice(p.price)}</p>
       <p class="desc">${p.short}</p>
@@ -34,9 +49,11 @@ async function renderList() {
     `;
       container.appendChild(card);
     });
+    if (!visibleProducts.length) container.innerHTML = '<p class="empty-state">No creations match your search.</p>';
   };
   draw();
-  search?.addEventListener('input', event => draw(event.target.value));
+  search?.addEventListener('input', event => draw(event.target.value, category.value));
+  category?.addEventListener('change', event => draw(search.value, event.target.value));
 }
 
 function getQueryParam(name) {
@@ -66,7 +83,7 @@ async function renderProduct() {
 
   container.innerHTML = `
     <div class="product-main">
-      <img src="${p.image}" alt="${p.name}">
+      <img src="${p.image}" alt="${p.name}" onerror="imageFallback(event)">
       <div class="product-info">
         <h2>${p.name}</h2>
         <p class="price">${formatPrice(p.price)}</p>
