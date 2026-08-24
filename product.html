@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product — Mrinal's Store</title>
+  <link rel="stylesheet" href="/site/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Mrinal's Store</h1>
+    <a class="back-link" href="/site/index.html">← Back to products</a>
+  </header>
+
+  <main>
+    <section id="product" class="product-detail"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Payments: UPI (14bbt1019@okicici) • Cash on Delivery available</p>
+    <p>Contact: <a href="mailto:14bbt1019@gmail.com">14bbt1019@gmail.com</a></p>
+  </footer>
+
+  <!-- Netlify form (hidden) - required if you want to use Netlify Forms when hosting on Netlify -->
+  <form name="netlify-order" id="netlifyOrderForm" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="hidden">
+    <input type="hidden" name="form-name" value="netlify-order">
+    <input type="hidden" name="bot-field" />
+    <input type="hidden" name="productId" value="">
+    <input type="hidden" name="productName" value="">
+    <input type="hidden" name="price" value="">
+    <input type="hidden" name="upi" value="">
+    <input type="hidden" name="buyerName" value="">
+    <input type="hidden" name="phone" value="">
+    <input type="hidden" name="qty" value="">
+    <input type="hidden" name="address" value="">
+    <input type="hidden" name="notes" value="">
+  </form>
+
+  <script src="/site/js/app.js"></script>
+</body>
+</html>
