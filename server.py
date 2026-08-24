@@ -8,8 +8,10 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
 BASE_DIR = Path(__file__).resolve().parent
-DB_PATH = BASE_DIR / "mrinals.db"
-UPLOAD_DIR = BASE_DIR / "uploads"
+DATA_DIR = Path(os.environ.get("DATA_DIR", BASE_DIR))
+DATA_DIR.mkdir(exist_ok=True)
+DB_PATH = DATA_DIR / "mrinals.db"
+UPLOAD_DIR = DATA_DIR / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 app = Flask(__name__, static_folder=str(BASE_DIR), static_url_path="")
@@ -62,6 +64,9 @@ def init_db():
             )
     connection.commit()
     connection.close()
+
+
+init_db()
 
 
 def settings_dict(connection):
@@ -157,5 +162,4 @@ def home():
 
 
 if __name__ == "__main__":
-    init_db()
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
