@@ -3,21 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mrinal's Store</title>
+  <title>Mrinal's Creations</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header class="site-header">
-    <h1>Mrinal's Store</h1>
-    <p>Handmade crafted items — embroidery hoops, T-shirt embroidery, handkerchief art.</p>
+    <div class="nav-wrap">
+      <a class="brand" href="index.html"><span class="brand-mark">M</span><span>Mrinal's <strong>Creations</strong></span></a>
+      <a class="admin-link" href="admin.html">Admin sign in</a>
+    </div>
+    <div class="hero-copy">
+      <p class="eyebrow">Handmade with a little extra love</p>
+      <h1>Thoughtful stitches.<br><em>Made just for you.</em></h1>
+      <p>Hand-stitched hoops, personalised embroidery and keepsakes made to make ordinary moments feel special.</p>
+      <a class="btn primary" href="#products">Explore the collection</a>
+    </div>
   </header>
 
   <main>
+    <section class="collection-head">
+      <div><p class="eyebrow">The collection</p><h2>Made by hand, chosen by heart</h2></div>
+      <input id="searchProducts" class="search-input" type="search" placeholder="Search creations..." aria-label="Search creations">
+    </section>
     <section id="products" class="product-grid"></section>
   </main>
 
   <footer class="site-footer">
-    <p>Payments: UPI (14bbt1019@okicici) • Cash on Delivery available</p>
+    <p>UPI: 14bbt1019@okicici · Cash on Delivery available</p>
     <p>Contact: <a href="mailto:14bbt1019@gmail.com">14bbt1019@gmail.com</a></p>
   </footer>
 

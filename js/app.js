@@ -1,4 +1,6 @@
 async function loadProducts() {
+  const savedProducts = localStorage.getItem('mrinalProducts');
+  if (savedProducts) return JSON.parse(savedProducts);
   const res = await fetch('products.json');
   const products = await res.json();
   return products;
@@ -18,8 +20,10 @@ function formatPrice(price) {
 async function renderList() {
   const products = await loadProducts();
   const container = document.getElementById('products');
-  container.innerHTML = '';
-  products.forEach(p => {
+  const search = document.getElementById('searchProducts');
+  const draw = (term = '') => {
+    container.innerHTML = '';
+    products.filter(p => `${p.name} ${p.short}`.toLowerCase().includes(term.toLowerCase())).forEach(p => {
     const card = el('article', 'product-card');
     card.innerHTML = `
       <img src="${p.image}" alt="${p.name}" loading="lazy">
@@ -28,8 +32,11 @@ async function renderList() {
       <p class="desc">${p.short}</p>
       <a class="btn" href="product.html?id=${p.id}">View / Order</a>
     `;
-    container.appendChild(card);
-  });
+      container.appendChild(card);
+    });
+  };
+  draw();
+  search?.addEventListener('input', event => draw(event.target.value));
 }
 
 function getQueryParam(name) {

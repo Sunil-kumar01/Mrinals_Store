@@ -1,7 +1,7 @@
-Mrinal's Store — Static site (simple)
+Mrinal's Creations — handmade store
 
 What this is:
-- A very simple static website (site/) that lists products and shows product detail pages.
+- A pink-themed static website that lists products and shows product detail pages.
 - Buyers can click Order / Customise on a product; an order form will open and, on submit, open the buyer's email client (mailto:) prefilled with the order details. This keeps the site backend-free.
 - UPI ID (14bbt1019@okicici) and Cash on Delivery are displayed per product.
 
@@ -13,8 +13,14 @@ Files:
 - /site/products.json — sample 10 products (all priced at ₹999)
 
 How to use locally:
-- Open site/index.html in a browser (double-click or use a local static server).
-- To host publicly, upload the site/ folder to GitHub Pages, Netlify, Vercel, or any static host.
+- Open index.html in a browser (double-click or use a local static server).
+- Open admin.html for the product dashboard. Demo login: admin@mrinalscreations.com / mrinal123.
+- To host publicly, upload this folder to GitHub Pages, Netlify, Vercel, or any static host.
+
+Admin note:
+- Product edits and uploaded images are stored in this browser's localStorage.
+- Use Export JSON in the admin dashboard, then replace products.json before deploying updates.
+- The demo login is for local editing only. Use backend authentication before publishing private admin access.
 
 Next steps / improvements (optional):
 - Integrate Payment Links (Stripe/PayPal) so buyers can pay online.
