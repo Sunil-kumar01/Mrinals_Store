@@ -1,5 +1,5 @@
 async function loadProducts() {
-  const res = await fetch('/site/products.json');
+  const res = await fetch('products.json');
   const products = await res.json();
   return products;
 }
@@ -26,7 +26,7 @@ async function renderList() {
       <h3>${p.name}</h3>
       <p class="price">${formatPrice(p.price)}</p>
       <p class="desc">${p.short}</p>
-      <a class="btn" href="/site/product.html?id=${p.id}">View / Order</a>
+      <a class="btn" href="product.html?id=${p.id}">View / Order</a>
     `;
     container.appendChild(card);
   });
@@ -111,7 +111,7 @@ async function renderProduct() {
 
     // First try serverless endpoint if configured
     try {
-      const cfgRes = await fetch('/site/config.json');
+      const cfgRes = await fetch('config.json');
       if (cfgRes.ok) {
         const cfg = await cfgRes.json();
         if (cfg.orderEndpoint && cfg.orderEndpoint.trim() !== '') {
