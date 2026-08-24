@@ -19,6 +19,8 @@ How to use locally:
 
 Admin note:
 - Product edits and uploaded images are stored in this browser's localStorage.
+- Store name, brand subtitle, admin email/password, UPI, contact email, and payment method are editable in the dashboard.
+- Open storefront tabs on the same browser update when dashboard changes are saved.
 - Use Export JSON in the admin dashboard, then replace products.json before deploying updates.
 - The demo login is for local editing only. Use backend authentication before publishing private admin access.
 

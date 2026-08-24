@@ -6,6 +6,10 @@ async function loadProducts() {
   return products;
 }
 
+const defaultSettings = { name: "Mrinal's", brand: 'Creations', upi: '14bbt1019@okicici', contact: '14bbt1019@gmail.com', cod: true };
+function loadSettings() { const saved = localStorage.getItem('mrinalSettings'); return saved ? { ...defaultSettings, ...JSON.parse(saved) } : defaultSettings; }
+function applySettings() { const settings = loadSettings(); document.querySelectorAll('[data-store-name]').forEach(node => node.textContent = settings.name); document.querySelectorAll('[data-store-brand]').forEach(node => node.textContent = settings.brand); document.querySelectorAll('[data-upi]').forEach(node => node.textContent = settings.upi); document.querySelectorAll('[data-cod]').forEach(node => node.textContent = settings.cod ? 'Cash on Delivery available' : 'Online payment available'); document.querySelectorAll('[data-contact]').forEach(node => node.textContent = settings.contact); document.querySelectorAll('[data-contact-link]').forEach(node => node.href = `mailto:${settings.contact}`); }
+
 function el(tag, cls, html) {
   const e = document.createElement(tag);
   if (cls) e.className = cls;
@@ -54,6 +58,7 @@ async function renderList() {
   draw();
   search?.addEventListener('input', event => draw(event.target.value, category.value));
   category?.addEventListener('change', event => draw(search.value, event.target.value));
+  window.addEventListener('storage', event => { if (event.key === 'mrinalProducts' || event.key === 'mrinalSettings') window.location.reload(); });
 }
 
 function getQueryParam(name) {
@@ -75,6 +80,7 @@ async function renderProduct() {
   const id = getQueryParam('id');
   const products = await loadProducts();
   const p = products.find(x => String(x.id) === String(id));
+  applySettings();
   const container = document.getElementById('product');
   if (!p) {
     container.innerHTML = '<p>Product not found.</p>';
@@ -88,7 +94,7 @@ async function renderProduct() {
         <h2>${p.name}</h2>
         <p class="price">${formatPrice(p.price)}</p>
         <p>${p.long}</p>
-        <p><strong>Payment:</strong> UPI (${p.upi}) • Cash on Delivery available</p>
+        <p><strong>Payment:</strong> UPI (<span data-upi>${p.upi}</span>) • <span data-cod>Cash on Delivery available</span></p>
         <button id="orderBtn" class="btn primary">Order / Customise</button>
         <button id="copyLink" class="btn">Copy link</button>
       </div>
@@ -108,6 +114,7 @@ async function renderProduct() {
       </form>
     </div>
   `;
+  applySettings();
 
   document.getElementById('orderBtn').addEventListener('click', () => {
     document.getElementById('orderFormWrap').classList.remove('hidden');
@@ -149,7 +156,7 @@ async function renderProduct() {
             phone,
             address,
             notes,
-            payment: { upi: p.upi, cod: true }
+            payment: { upi: loadSettings().upi, cod: loadSettings().cod }
           };
           const postRes = await fetch(cfg.orderEndpoint, {
             method: 'POST',
@@ -190,13 +197,16 @@ async function renderProduct() {
       return;
     }
 
+    const currentSettings = loadSettings();
+    const paymentText = currentSettings.cod ? `UPI ${currentSettings.upi} (or Cash on Delivery)` : `UPI ${currentSettings.upi}`;
     const body = `Hello,%0D%0A%0D%0AI'd like to place an order for:${encodeURIComponent('\n')}
-Name: ${buyerName}%0D%0APhone: ${phone}%0D%0AProduct: ${p.name}%0D%0AQuantity: ${qty}%0D%0AAddress: ${address}%0D%0ACustom notes: ${notes}%0D%0A%0D%0APayment: UPI ${p.upi} (or Cash on Delivery)%0D%0A%0D%0AThanks!`;
+  Name: ${buyerName}%0D%0APhone: ${phone}%0D%0AProduct: ${p.name}%0D%0AQuantity: ${qty}%0D%0AAddress: ${address}%0D%0ACustom notes: ${notes}%0D%0A%0D%0APayment: ${paymentText}%0D%0A%0D%0AThanks!`;
     window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${body}`;
   });
 }
 
 // Decide which page to render
+applySettings();
 if (window.location.pathname.endsWith('product.html')) {
   renderProduct();
 } else {
