@@ -118,7 +118,7 @@ cd ~/Mrinals_Store
 /usr/local/bin/python3 server.py
 ```
 
-The database backend is required for admin edits to persist across browsers and devices. GitHub Pages cannot execute Python; deploy `server.py` separately on a Python host such as Render or Railway for shared production administration.
+The database backend is required for admin edits to persist across browsers and devices. GitHub Pages cannot execute Python; deploy `server.py` separately on a Python host such as Render or Railway for shared production administration. The current Render configuration intentionally avoids a paid disk so it can run on the free plan for testing; SQLite data and uploaded images may reset after restarts.
 
 ## 5. Local Testing
 
