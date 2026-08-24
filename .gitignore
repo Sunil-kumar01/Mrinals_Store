@@ -1,1 +1,4 @@
 .DS_Store
+mrinals.db
+uploads/*
+!uploads/.gitkeep

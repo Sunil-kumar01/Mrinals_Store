@@ -27,6 +27,9 @@ Mrinals_Store/
 |-- config.json                Optional order endpoint configuration
 |-- README.txt                 Basic project instructions
 |-- PROJECT_HANDOFF.md         This complete project history
+|-- server.py                  Optional Flask API, SQLite database, and uploads
+|-- requirements.txt            Backend Python dependencies
+|-- Procfile                    Python hosting start command
 |-- css/
 |   `-- styles.css             Pink theme, layout, responsive styles
 |-- js/
@@ -76,6 +79,8 @@ The admin page is available at `admin.html` and includes:
 - Enable or disable Cash on Delivery
 - Log out
 
+The repository also includes an optional Flask backend in `server.py`. It provides SQLite storage and permanent uploaded images for shared admin changes.
+
 Demo login used for local testing:
 
 - Email: `admin@mrinalscreations.com`
@@ -94,6 +99,26 @@ For a real production admin system, the next version should use:
 - Secure password handling
 
 The demo password should be changed before using the site for real customers.
+
+### Database Backend
+
+The backend provides:
+
+- SQLite database in `mrinals.db`
+- Product CRUD API at `/api/products`
+- Admin login at `/api/login`
+- Store settings at `/api/settings`
+- Permanent uploaded images in `uploads/`
+
+Run it locally with:
+
+```bash
+cd ~/Mrinals_Store
+/usr/local/bin/python3 -m pip install -r requirements.txt
+/usr/local/bin/python3 server.py
+```
+
+The database backend is required for admin edits to persist across browsers and devices. GitHub Pages cannot execute Python; deploy `server.py` separately on a Python host such as Render or Railway for shared production administration.
 
 ## 5. Local Testing
 

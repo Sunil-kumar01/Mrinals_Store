@@ -21,6 +21,8 @@ Admin note:
 - Product edits and uploaded images are stored in this browser's localStorage.
 - Store name, brand subtitle, admin email/password, UPI, contact email, and payment method are editable in the dashboard.
 - Open storefront tabs on the same browser update when dashboard changes are saved.
+- For permanent database and image storage, run the Flask backend with `python server.py`. It creates `mrinals.db` and stores uploads in `uploads/`.
+- GitHub Pages serves the static fallback only; deploy `server.py` to a Python host such as Render or Railway for shared admin changes.
 - Use Export JSON in the admin dashboard, then replace products.json before deploying updates.
 - The demo login is for local editing only. Use backend authentication before publishing private admin access.
 
